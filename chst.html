@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز الحياة للتدريب المهني - المساعد الافتراضي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary: #2c5f8a;
+            --primary-light: #3a7ca5;
+            --secondary: #3a9d23;
+            --accent: #f39c12;
+            --light: #f8f9fa;
+            --dark: #1a1a2e;
+            --bot-msg: #e3f2fd;
+            --user-msg: #f0f4f8;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e4e7ec 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .chat-container {
+            flex: 1;
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 70vh;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-title {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .chat-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .chat-status {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            background: var(--secondary);
+            border-radius: 50%;
+            margin-left: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            line-height: 1.5;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .bot-message {
+            background: var(--bot-msg);
+            border-bottom-right-radius: 5px;
+            align-self: flex-start;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-message {
+            background: var(--user-msg);
+            border-bottom-left-radius: 5px;
+            align-self: flex-end;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            background: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(44, 95, 138, 0.2);
+        }
+
+        .send-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-button:hover {
+            background: var(--primary-light);
+            transform: scale(1.05);
+        }
+
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background: #f9f9f9;
+        }
+
+        .quick-reply {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-reply:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .suggested-questions {
+            padding: 20px;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        .suggested-title {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #555;
+            text-align: center;
+        }
+
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .question-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #2a2a4a 100%);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .chat-container {
+                margin: 15px;
+                height: 75vh;
+                border-radius: 15px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .questions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chat-header {
+                padding: 15px;
+            }
+            
+            .chat-title {
+                font-size: 1.3rem;
+            }
+            
+            .chat-input-container {
+                padding: 15px;
+            }
+            
+            .send-button {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .quick-replies {
+                padding: 10px 15px;
+            }
+            
+            .suggested-questions {
+                padding: 15px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                   <img src="imgs/images.jpg" style="width: 60px; border-radius: 60%;"  alt="">
+                </div>
+                <div class="logo-text">مركز <span>الحياة</span></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- شات بوت -->
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="chat-status">
+                <span>متصل</span>
+                <div class="status-indicator"></div>
+            </div>
+            <h2 class="chat-title">المساعد الافتراضي لمركز الحياة</h2>
+            <p class="chat-subtitle">كيف يمكنني مساعدتك اليوم؟</p>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <!-- الرسائل ستضاف هنا ديناميكيًا -->
+            <div class="message bot-message">
+                <p>مرحباً بك في مركز الحياة للتدريب المهني! 👋</p>
+                <p>أنا المساعد الافتراضي هنا لمساعدتك في الحصول على المعلومات التي تبحث عنها. كيف يمكنني مساعدتك اليوم؟</p>
+                <div class="message-time">الآن</div>
+            </div>
+        </div>
+        
+        <div class="quick-replies">
+            <div class="quick-reply" onclick="sendQuickReply('ما هي برامج التدريب المتاحة؟')">برامج التدريب</div>
+            <div class="quick-reply" onclick="sendQuickReply('ما هي مواعيد الدوام؟')">مواعيد الدوام</div>
+            <div class="quick-reply" onclick="sendQuickReply('كيف يمكنني التسجيل؟')">طريقة التسجيل</div>
+            <div class="quick-reply" onclick="sendQuickReply('أين يقع المركز؟')">موقع المركز</div>
+        </div>
+        
+        <div class="suggested-questions">
+            <h3 class="suggested-title">أسئلة مقترحة</h3>
+            <div class="questions-grid">
+                <div class="question-card" onclick="sendQuickReply('ما هي متطلبات القبول في البرامج التدريبية؟')">
+                    ما هي متطلبات القبول في البرامج التدريبية؟
+                </div>
+                <div class="question-card" onclick="sendQuickReply('هل تقدمون شهادات معتمدة بعد الانتهاء من التدريب؟')">
+                    هل تقدمون شهادات معتمدة بعد الانتهاء من التدريب؟
+                </div>
+                <div class="question-card" onclick="sendQuickReply('ما هي مدة البرامج التدريبية؟')">
+                    ما هي مدة البرامج التدريبية؟
+                </div>
+                <div class="question-card" onclick="sendQuickReply('هل هناك خصومات للطلاب؟')">
+                    هل هناك خصومات للطلاب؟
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="userInput" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
+            <button class="send-button" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="copyright">
+            جميع الحقوق محفوظة &copy; 2023 مركز الحياة للتدريب المهني
+        </div>
+    </footer>
+
+    <script>
+        // قاعدة معارف للأسئلة والأجوبة
+        const knowledgeBase = {
+            'مرحبا': 'أهلاً وسهلاً بك! كيف يمكنني مساعدتك اليوم؟',
+            'السلام عليكم': 'وعليكم السلام ورحمة الله وبركاته! أهلاً بك في مركز الحياة للتدريب المهني.',
+            'ما هي برامج التدريب المتاحة؟': 'نقدم في مركز الحياة مجموعة متنوعة من البرامج التدريبية تشمل: تكنولوجيا المعلومات، المساحة، مساعد خدمات طبية، التصميم الجرافيكي، والمهارات الإدارية. أي برنامج يهمك معرفة المزيد عنه؟',
+            'ما هي مواعيد الدوام؟': 'أوقات عمل المركز: من الأحد إلى الخميس من 8 صباحاً حتى 5 مساءً، ويوم الجمعة من 9 صباحاً حتى 2 ظهراً.',
+            'كيف يمكنني التسجيل؟': 'يمكنك التسجيل في برامجنا التدريبية عن طريق زيارة المركز في الفيوم أمام مستشفى الصدر، أو الاتصال بنا على الرقم 0842345678، أو التسجيل عبر موقعنا الإلكتروني.',
+            'أين يقع المركز؟': 'يقع مركز الحياة للتدريب المهني في الفيوم أمام مستشفى الصدر مباشرة. يمكنك استخدام خرائط جوجل للوصول إلينا بسهولة.',
+            'ما هي متطلبات القبول في البرامج التدريبية؟': 'متطلبات القبول تختلف حسب البرنامج، ولكن بشكل عام تشمل: صورة من البطاقة الشخصية، صورة شخصية، واستمارة التسجيل. بعض البرامج تتطلب مؤهلات محددة.',
+            'هل تقدمون شهادات معتمدة بعد الانتهاء من التدريب؟': 'نعم، نحن نقدم شهادات معتمدة من وزارة التعليم العالي ووزارة القوى العاملة بعد إتمام البرامج التدريبية بنجاح.',
+            'ما هي مدة البرامج التدريبية؟': 'مدة البرامج تختلف حسب نوعية البرنامج، فهناك برامج قصيرة (3 أشهر)، متوسطة (6 أشهر)، وبرامج مكثفة (سنة واحدة).',
+            'هل هناك خصومات للطلاب؟': 'نعم، نقدم خصومات خاصة للطلاب تصل إلى 20% على بعض البرامج التدريبية. كما لدينا عروض خاصة خلال فترات محددة من السنة.',
+            'شكرا': 'عفوًا! سعيد لأنني استطعت مساعدتك. هل هناك أي شيء آخر يمكنني مساعدتك به؟',
+            'default': 'عذرًا، لم أفهم سؤالك بشكل كامل. يمكنك طرح سؤالك بطريقة أخرى أو التواصل معنا على الرقم 0842345678 للمساعدة المباشرة.'
+        };
+
+        // دالة لإرسال رسالة
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value.trim();
+            
+            if (message !== '') {
+                addMessage(message, 'user');
+                userInput.value = '';
+                
+                // محاكاة وقت كتابة الرد
+                setTimeout(() => {
+                    const response = getBotResponse(message);
+                    addMessage(response, 'bot');
+                    scrollToBottom();
+                }, 1000);
+            }
+        }
+
+        // دالة لإرسال رد سريع
+        function sendQuickReply(question) {
+            addMessage(question, 'user');
+            
+            // محاكاة وقت كتابة الرد
+            setTimeout(() => {
+                const response = getBotResponse(question);
+                addMessage(response, 'bot');
+                scrollToBottom();
+            }, 1000);
+        }
+
+        // دالة للحصول على رد البوت
+        function getBotResponse(message) {
+            message = message.toLowerCase();
+            
+            // البحث عن تطابق في قاعدة المعارف
+            for (const key in knowledgeBase) {
+                if (message.includes(key.toLowerCase())) {
+                    return knowledgeBase[key];
+                }
+            }
+            
+            // إذا لم يتم العثور على تطابق
+            return knowledgeBase['default'];
+        }
+
+        // دالة لإضافة رسالة إلى الدردشة
+        function addMessage(text, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+            
+            const messageText = document.createElement('p');
+            messageText.textContent = text;
+            
+            const messageTime = document.createElement('div');
+            messageTime.classList.add('message-time');
+            messageTime.textContent = getCurrentTime();
+            
+            messageDiv.appendChild(messageText);
+            messageDiv.appendChild(messageTime);
+            chatMessages.appendChild(messageDiv);
+            
+            scrollToBottom();
+        }
+
+        // دالة للحصول على الوقت الحالي
+        function getCurrentTime() {
+            const now = new Date();
+            return `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+        }
+
+        // دالة للتمرير إلى الأسفل
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // دالة للتعامل مع الضغط على مفتاح Enter
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // إضافة رسالة ترحيبية أولية بعد تحميل الصفحة
+        window.onload = function() {
+            scrollToBottom();
+        };
+    </script>
+</body>
+</html>

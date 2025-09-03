@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز الحياة للتدريب المهني - الفيوم</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="header-background"></div>
+
+        <!-- شريط التنقل -->
+        <nav class="navbar">
+            <div class="logo">
+                <div class="logo-icon">
+
+                    <img src="imgs/images.jpg" style="font-size: 28px; color: white; width: 60px; height: 60px; border-radius: 50%;"alt="">
+                </div>
+                <div class="logo-text">مركز <span>الحياة</span></div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#"><i class="fas fa-home"></i> الرئيسية</a></li>
+                <li><a href="card.html"><i class="fas fa-book"></i> البرامج التدريبية</a></li>
+                <li><a href="test.html"><i class="fas fa-chalkboard-teacher"></i> تعرف علينا</a></li>
+                <li><a href="#"><i class="fas fa-calendar-alt"></i> الجدول الزمني</a></li>
+                <li><a href="signin.html"><i class="fas fa-envelope"></i>  تواصل معنا </a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <!-- إضافة id للزر -->
+                <button class="btn btn-login" id="navbarLoginBtn">تسجيل الدخول</button>
+                <button class="btn btn-register">حساب جديد</button>
+            </div>
+            
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+        
+        <!-- محتوى الهيدر المركزي -->
+        <div class="header-content">
+            <h1 class="header-title">مركز الحياة للتدريب المهني</h1>
+            <p class="header-subtitle">نحو مستقبل مهني مشرق - اكتسب المهارات التي تؤهلك لسوق العمل</p>
+            <button class="btn-start" id="startBtn">ابدأ الآن</button>
+        </div>
+        
+        <!-- الصورة الكرتونية -->
+        <a href="chst.html"><img src="imgs/تصميم بدون عنوان (1).png" alt="شخص كرتوني" class="cartoon-character" width="200px"></a>
+        
+    </header>
+    <!-- مودال تسجيل الدخول -->
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </div>
+            <h2 class="modal-title">تسجيل الدخول</h2>
+            <div class="input-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني">
+            </div>
+            <div class="input-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور">
+            </div>
+            <button class="modal-btn">تسجيل الدخول</button>
+            <div class="modal-links">
+                <a href="#">هل نسيت كلمة المرور؟</a>
+                <a href="#">إنشاء حساب جديد</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // متغير لتتبع حالة تسجيل الدخول
+        let isLoggedIn = false;
+        
+        // DOM Elements
+        const startBtn = document.getElementById('startBtn');
+        const navbarLoginBtn = document.getElementById('navbarLoginBtn'); // العنصر الجديد
+        const loginModal = document.getElementById('loginModal');
+        const closeModal = document.getElementById('closeModal');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const navbar = document.querySelector('.navbar');
+        
+        // دالة لفتح مودال تسجيل الدخول
+        function openLoginModal() {
+            if (!isLoggedIn) {
+                loginModal.classList.add('active');
+            } else {
+                // إذا كان المستخدم مسجل الدخول، توجيهه إلى لوحة التحكم
+                window.location.href = 'dashboard.html';
+            }
+        }
+        
+        // عند النقر على زر "ابدأ الآن"
+        startBtn.addEventListener('click', openLoginModal);
+        
+        // عند النقر على زر "تسجيل الدخول" في الـ navbar
+        navbarLoginBtn.addEventListener('click', openLoginModal);
+        
+        // إغلاق مودال تسجيل الدخول
+        closeModal.addEventListener('click', function() {
+            loginModal.classList.remove('active');
+        });
+        
+        // إغلاق المودال عند النقر خارج المحتوى
+        loginModal.addEventListener('click', function(e) {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+        });
+        
+        // تبديل قائمة الهاتف المحمول
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            menuToggle.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // إضافة تأثير التمرير لشريط التنقل
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // محاكاة تسجيل الدخول الناجح (لأغراض العرض)
+        document.querySelector('.modal-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            isLoggedIn = true;
+            loginModal.classList.remove('active');
+            alert('تم تسجيل الدخول بنجاح! سيتم توجيهك إلى لوحة التحكم.');
+            // في التطبيق الحقيقي، ستكون هنا عملية إعادة التوجيه
+            // window.location.href = 'dashboard.html';
+        });
+    </script>
+
+   
+    <!-- الاقسام -->
+     <div class="bodyy">
+
+    <div class="container-moo">
+        <div class="header-g">
+            <h1>أقسام مركز الحياة للتدريب المهني</h1>
+            <p>اكتشف برامجنا التدريبية المتميزة المصممة لتأهيلك لسوق العمل باحترافية. اختر مسارك المهني وابدأ رحلة النجاح معنا اليوم</p>
+        </div>
+        
+        <div class="cards-container">
+            <!-- كارت تكنولوجيا المعلومات -->
+            <div class="card it-card">
+                <div class="card-image">
+                    <img src="imgs/pngtree-computer-of-a-programmer-with-lines-code-of-software-image_15746003.jpg" alt="تكنولوجيا المعلومات">
+                    <div class="card-overlay"></div>
+                    <div class="card-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">تكنولوجيا المعلومات</h2>
+                    <p class="card-text">
+                        برامج تدريبية متخصصة في مجال تكنولوجيا المعلومات تشمل البرمجة، الشبكات، الأمن السيبراني، وتحليل البيانات. تم تصميم الدورات لتواكب أحدث التطورات التكنولوجية وتؤهل الخريجين لسوق العمل الرقمي.
+                    </p>
+                    
+                    <ul class="card-features">
+                        <li>برمجة وتطوير الويب والتطبيقات</li>
+                        <li>أمن المعلومات والحماية السيبرانية</li>
+                        <li>إدارة الشبكات وقواعد البيانات</li>
+                        <li>تحليل البيانات والذكاء الاصطناعي</li>
+                    </ul>
+                    
+                    <a href="card.html" class="card-btn">اكتشف البرامج <i class="fas fa-arrow-left"></i></a>
+                </div>
+            </div>
+            
+            <!-- كارت المساحة -->
+            <div class="card surveying-card">
+                <div class="card-image">
+                    <img src="imgs/images (1).jpg" alt="المساحة">
+                    <div class="card-overlay"></div>
+                    <div class="card-icon">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">المساحة</h2>
+                    <p class="card-text">
+                        دورات تدريبية متقدمة في مجال المساحة والخرائط تشمل التقنيات الحديثة مثل نظم المعلومات الجغرافية (GIS)، المساحة التصويرية، والمساحة باستخدام الطائرات المسيرة. تأهيل كوادر قادرة على العمل في المشاريع الهندسية والإنشائية.
+                    </p>
+                    
+                    <ul class="card-features">
+                        <li>نظم المعلومات الجغرافية (GIS)</li>
+                        <li>المساحة التصويرية والاستشعار عن بعد</li>
+                        <li>استخدام الطائرات المسيرة في المساحة</li>
+                        <li>تطبيقات المساحة في المشاريع الهندسية</li>
+                    </ul>
+                    
+                    <a href="#" class="card-btn">اكتشف البرامج <i class="fas fa-arrow-left"></i></a>
+                </div>
+            </div>
+            
+            <!-- كارت مساعد خدمات طبية -->
+            <div class="card medical-card">
+                <div class="card-image">
+                    <img src="imgs/images (2).jpg" alt="مساعد خدمات طبية">
+                    <div class="card-overlay"></div>
+                    <div class="card-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">مساعد خدمات طبية</h2>
+                    <p class="card-text">
+                        برامج تدريبية في مجال الخدمات الطبية المساندة تشمل الإسعافات الأولية، التمريض الأساسي، إدارة السجلات الطبية، والمساعدة في المختبرات. تأهيل كوادر فنية قادرة على تقديم الدعم في المؤسسات الصحية.
+                    </p>
+                    
+                    <ul class="card-features">
+                        <li>الإسعافات الأولية والطوارئ</li>
+                        <li>المساعدة التمريضية الأساسية</li>
+                        <li>إدارة السجلات الطبية الإلكترونية</li>
+                        <li>المساعدة في المختبرات الطبية</li>
+                    </ul>
+                    
+                    <a href="#" class="card-btn">اكتشف البرامج <i class="fas fa-arrow-left"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // تفاعلية الأزرار
+        document.querySelectorAll('.card-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const cardTitle = this.closest('.card').querySelector('.card-title').textContent;
+                
+                // تأثير اهتزازي عند النقر
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+                
+                // رسالة تحويلية
+                alert(`سيتم تحويلك لصفحة برامج قسم ${cardTitle}`);
+                
+                // في التطبيق الحقيقي، هنا سيتم توجيه المستخدم للصفحة المطلوبة
+                // window.location.href = 'programs.html?category=' + encodeURIComponent(cardTitle);
+            });
+        });
+        
+        // تأثيرات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach((card, index) => {
+                // تأخير ظهور الكروت تدريجياً
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300 * index);
+            });
+        });
+    </script>
+
+    <!-- من نحن  -->
+
+    <div class="body-y">
+    <div class="container-rr">
+        <div class="section-header">
+            <h1 class="section-title">من نحن</h1>
+            <p class="text-p">مركز الحياة للتدريب المهني يقدم تجربة تعليمية فريدة تجمع بين النظرية والتطبيق العملي</p>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h2 class="about-title">مركز الحياة: رحلة نحو التميز المهني</h2>
+                
+                <p class="about-description">
+                    تأسس مركز الحياة للتدريب المهني عام 2010 في محافظة الفيوم، بهدف سد الفجوة بين مخرجات التعليم واحتياجات سوق العمل. 
+                    على مدار أكثر من عقد من الزمان، استطعنا تأهيل الآلاف من الشباب والشابات في مختلف التخصصات المهنية المطلوبة.
+                </p>
+                
+                <p class="about-description">
+                    نؤمن في مركز الحياة بأن التدريب المهني هو بوابة المستقبل، ونسعى جاهدين لتقديم برامج تدريبية متميزة تواكب 
+                    أحدث التطورات التكنولوجية والمهنية، بإشراف نخبة من المدربين المؤهلين وذوي الخبرة.
+                </p>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <p class="feature-text">نقدم أكثر من 20 برنامج تدريبي في مجالات متنوعة تلبي احتياجات سوق العمل</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <p class="feature-text">فريق تدريسي مؤهل من الخبراء والمتخصصين في مجالاتهم</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <p class="feature-text">شبكة شراكات مع كبرى الشركات والمؤسسات لتوفير فرص عمل للخريجين</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <p class="feature-text">مرافق تدريبية مجهزة بأحدث التقنيات والأدوات العملية</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-image">
+                <div class="background-shape shape-1"></div>
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                     alt="مركز الحياة للتدريب المهني" class="floating-image">
+                <div class="background-shape shape-2"></div>
+            </div>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="yearsCounter">0</div>
+                <div class="stat-text">سنة من الخبرة</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number" id="studentsCounter">0</div>
+                <div class="stat-text">متدرّب متميز</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number" id="programsCounter">0</div>
+                <div class="stat-text">برنامج تدريبي</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number" id="partnersCounter">0</div>
+                <div class="stat-text">شريك استراتيجي</div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // تأثير عدادات الأرقام
+        function startCounter(element, target, duration) {
+            let current = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    clearInterval(timer);
+                    element.textContent = target;
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+        
+        // تفعيل العدادات عند ظهورها في الشاشة
+        function initCounters() {
+            const yearsCounter = document.getElementById('yearsCounter');
+            const studentsCounter = document.getElementById('studentsCounter');
+            const programsCounter = document.getElementById('programsCounter');
+            const partnersCounter = document.getElementById('partnersCounter');
+            
+            startCounter(yearsCounter, 14, 2000);
+            startCounter(studentsCounter, 8500, 2500);
+            startCounter(programsCounter, 24, 1500);
+            startCounter(partnersCounter, 120, 3000);
+        }
+        
+        // تفعيل العدادات عند تحميل الصفحة
+        window.addEventListener('load', initCounters);
+        
+        // تأثيرات عند التمرير
+        window.addEventListener('scroll', function() {
+            const aboutContent = document.querySelector('.about-content');
+            const scrollPosition = window.scrollY;
+            const elementPosition = aboutContent.offsetTop - window.innerHeight;
+            
+            if (scrollPosition > elementPosition + 200) {
+                aboutContent.style.opacity = '1';
+                aboutContent.style.transform = 'translateY(0)';
+            }
+        });
+        
+        // تهيئة العناصر للحركة
+        document.addEventListener('DOMContentLoaded', function() {
+            const aboutContent = document.querySelector('.about-content');
+            aboutContent.style.opacity = '0';
+            aboutContent.style.transform = 'translateY(50px)';
+            aboutContent.style.transition = 'opacity 1s ease, transform 1s ease';
+        });
+    </script>
+
+<!-- اراء المتدربين  -->
+
+     <div class="body-tt">
+    <div class="container-container">
+        <div class="section-header">
+            <h1 class="text-h1">آراء متدربينا</h1>
+            <p class="section-subtitle">انطباعات وتجارب حقيقية من متدربينا الذين حققوا نجاحات مهنية بعد تدريبهم في مركز الحياة</p>
+        </div>
+            <div class="div">
+            <section>
+                <img class="imgss" src="imgs/WhatsApp Image 2025-08-20 at 6.55.14 PM.jpeg" alt="">
+                <div class="text-name">
+                <h1 class="">سارة عبد الله</h1>
+                <p class="">تجربتي في مركز الحياة كانت نقطة تحول في مسيرتي المهنية. 
+                    البرنامج التدريبي كان متكاملاً
+                     وشاملاً، والمدربون على أعلى مستوى من الخبرة والكفاءة.</p>
+            </div>
+            </section>
+        
+             <section>
+                <img class="imgss" src="imgs/WhatsApp Image 2025-08-20 at 6.55.15 PM.jpeg" alt="">
+                <div class="text-name">
+                <h1 class="">محمود أحمد</h1>
+                <p class="">التدريب في مركز الحياة كان تجربة استثنائية. الدورة كانت عملية جداً 
+                    وتضمنت تدريبات ميدانية على أحدث الأجهزة المساحية.</p>
+                    </div>
+            </section>
+        
+             <section>
+                <img class="imgss" src="imgs/WhatsApp Image 2025-08-20 at 6.55.17 PM (1).jpeg" alt="">
+                <div class="text-name">
+                <h1 class="">آمنة محمد</h1>
+                <p class="">برنامج مساعد الخدمات الطبية كان أكثر من رائع. 
+                    التدريب العملي في المستشفيات والتعامل مع حالات حقيقية
+                     ساعدني كثيراً في اكتساب الثقة والخبرة.</p>
+                    </div>
+            </section>
+            </div>
+            </div>
+            </div>
+
+<!--  موقع المركز   -->
+
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">موقع المركز</h1>
+            <p class="section-subtitle">مركز الحياة للتدريب المهني - الفيوم أمام مستشفى الصدر مباشرة</p>
+        </div>
+        
+        <div class="location-container">
+            <div class="map-container">
+                <!-- خريطة جوجل لموقع المركز -->
+                <iframe 
+                    class="map-frame"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d226340.3720386829!2d30.57819965!3d29.308049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14598c8e4b0c3d77%3A0x8d3e0e9c8a3d9d8b!2sFaiyum%2C%20Faiyum%20Governorate!5e0!3m2!1sen!2seg!4v1692450000000!5m2!1sen!2seg" 
+                    allowfullscreen="" 
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                
+                <div class="location-overlay">
+                    <h3>الموقع الدقيق</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> أمام مستشفى الصدر، الفيوم</p>
+                    <p><i class="fas fa-city"></i> محافظة الفيوم، مصر</p>
+                </div>
+                
+                <div class="location-marker">
+                    <div class="pin"></div>
+                    <div class="pulse"></div>
+                </div>
+            </div>
+            
+            <div class="location-info">
+                <div class="info-content">
+                    <h2 class="info-title">معلومات الموقع والاتصال</h2>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>العنوان الدقيق</h4>
+                                <p style="color: black;">الفيوم، أمام مستشفى الصدر مباشرة<br>بجوار مجمع المدارس الرسمية</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>هواتف المركز</h4>
+                                <p style="color: black;">084 2345678 - 084 2345679<br>0100 1234567 - 0111 2345678</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>البريد الإلكتروني</h4>
+                                <p style="color: black;">info@hayat-center.edu.eg<br>support@hayat-center.edu.eg</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="working-hours">
+                        <h3 class="hours-title">ساعات العمل</h3>
+                        <div class="hours-grid">
+                            <div class="hour-item">
+                                <div class="day">الأحد - الخميس</div>
+                                <div class="time">8:00 صباحاً - 5:00 مساءً</div>
+                            </div>
+                            <div class="hour-item">
+                                <div class="day">الجمعة</div>
+                                <div class="time">9:00 صباحاً - 2:00 ظهراً</div>
+                            </div>
+                            <div class="hour-item">
+                                <div class="day">السبت</div>
+                                <div class="time">إجازة</div>
+                            </div>
+                            <div class="hour-item">
+                                <div class="day">العطل الرسمية</div>
+                                <div class="time">إجازة</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="transportation">
+                        <h3 class="transportation-title">وسائل الوصول</h3>
+                        <p>يمكن الوصول إلى المركز بسهولة عبر:</p>
+                        <div class="transportation-icons">
+                            <div class="transport-icon">
+                                <div><i class="fas fa-bus"></i></div>
+                                <p>الحافلات</p>
+                            </div>
+                            <div class="transport-icon">
+                                <div><i class="fas fa-taxi"></i></div>
+                                <p>التاكسي</p>
+                            </div>
+                            <div class="transport-icon">
+                                <div><i class="fas fa-car"></i></div>
+                                <p>السيارة</p>
+                            </div>
+                            <div class="transport-icon">
+                                <div><i class="fas fa-motorcycle"></i></div>
+                                <p>الدراجة</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تأثيرات عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            // إعداد الرسوم المتحركة للعناصر
+            const elements = document.querySelectorAll('.location-container > *');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = `opacity 0.8s ease ${index * 0.3}s, transform 0.8s ease ${index * 0.3}s`;
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 500 + index * 300);
+            });
+            
+            // تأثير التمرير
+            window.addEventListener('scroll', function() {
+                const elements = document.querySelectorAll('.location-container > *');
+                elements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.8) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+            // تأثيرات التفاعل مع وسائل المواصلات
+            const transportIcons = document.querySelectorAll('.transport-icon');
+            transportIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+
+<!--  footer  -->
+    
+    <div class="container">
+        <h1>مركز الحياة للتدريب المهني</h1>
+        <p> مركز الحياة للتدريب المهني مؤسسة رائدة في مجال التدريب المهني والتقني، </p>
+    </div>
+    
+    <!-- الفوتر المتطور -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <img src="imgs/images.jpg" style="width: 80px; height: 80px; border-radius: 50%;" alt="">
+                    </div>
+                    <div class="footer-logo-text">مركز <span>الحياة</span></div>
+                </div>
+                <p class="footer-about">
+                    مركز الحياة للتدريب المهني مؤسسة رائدة في مجال التدريب المهني والتقني، 
+                    نسعى لتأهيل الشباب لسوق العمل من خلال برامج تدريبية متخصصة تواكب 
+                    احتياجات سوق العمل المحلي والعالمي.
+                </p>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> من نحن</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> البرامج التدريبية</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> المدربين</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">معلومات التواصل</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>العنوان</h4>
+                            <p>الفيوم، أمام مستشفى الصدر مباشرة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>الهاتف</h4>
+                            <p>084 2345678 - 0100 1234567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>البريد الإلكتروني</h4>
+                            <p>info@hayat-center.edu.eg</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- قسم أيقونات التواصل الاجتماعي المتطور -->
+        <div class="social-section">
+            <h3 class="social-title">تابعنا على وسائل التواصل الاجتماعي</h3>
+            <div class="social-icons">
+                <div class="social-item">
+                    <a href="https://www.facebook.com/atcfayyoum/?locale=ar_AR" class="social-icon facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <p class="social-name">فيسبوك</p>
+                </div>
+                
+                <div class="social-item">
+                    <a href="https://wa.me/201151152777." class="social-icon whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <p class="social-name">واتساب</p>
+                </div>
+                
+                <div class="social-item">
+                    <a href="#" class="social-icon instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <p class="social-name">انستغرام</p>
+                </div>
+                
+                <div class="social-item">
+                    <a href="#" class="social-icon messenger">
+                        <i class="fab fa-facebook-messenger"></i>
+                    </a>
+                    <p class="social-name">ماسنجر</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">جميع الحقوق محفوظة &copy; 2023 مركز الحياة للتدريب المهني | تصميم وتطوير <a href="#">فريق المركز التقني</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // تفعيل تأثيرات التمرير
+        document.addEventListener('DOMContentLoaded', function() {
+            const socialItems = document.querySelectorAll('.social-item');
+            
+            socialItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 500 + index * 200);
+            });
+            
+            // تأثيرات التفاعل مع أيقونات التواصل
+            const socialIcons = document.querySelectorAll('.social-icon');
+            socialIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1)';
+                    this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.4)';
+                });
+                
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.3)';
+                });
+            });
+            
+            // تأثيرات التمرير للعناصر
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.footer-col').forEach(col => {
+                col.style.opacity = '0';
+                col.style.transform = 'translateY(30px)';
+                col.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(col);
+            });
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آراء المتدربين</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #6a11cb 50%, #2575fc 50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .cards section {
+      flex: 0 0 280px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border-radius: 15px;
+      padding: 60px 20px 20px; /* مساحة فوق عشان الصورة تطلع */
+      text-align: center;
+      transition: all 0.6s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: visible; /* يخلي الصورة تبان بره */
+    }
+
+    .cards section:hover {
+      transform: translateY(-10px);
+    }
+
+    .cards section .imgss {
+      position: absolute;
+      top: -50px; /* تطلع لفوق */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 5px solid rgba(255,255,255,0.5);
+      animation: spin 10s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: translateX(-50%) rotate(0deg); }
+      to { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    .cards section h2 {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .cards section p {
+      font-size: 0.9rem;
+      color: #eee;
+      margin-bottom: 15px;
+    }
+
+    .stars {
+      color: gold;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cards">
+    <section>
+      <img src="https://via.placeholder.com/100" class="imgss" alt="student">
+      <h2>محمد أحمد</h2>
+      <div class="stars">★★★★★</div>
+      <p>التجربة كانت رائعة جدًا والكورس ساعدني أطور مهاراتي بشكل كبير.</p>
+    </section>
+
+    <section>
+      <img src="https://via.placeholder.com/100" class="imgss" alt="student">
+      <h2>سارة علي</h2>
+      <div class="stars">★★★★☆</div>
+      <p>الشرح واضح والتطبيقات عملية فعلًا فرقت معايا جدًا.</p>
+    </section>
+
+    <section>
+      <img src="https://via.placeholder.com/100" class="imgss" alt="student">
+      <h2>خالد يوسف</h2>
+      <div class="stars">★★★★★</div>
+      <p>من أفضل الدورات اللي حضرتها.. تنظيم واهتمام بالتفاصيل.</p>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .login-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #7f8c8d;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .input-with-icon input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember input {
+            margin-left: 8px;
+        }
+        
+        .forgot-password {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .btn {
+            width: 100%;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+            color: #7f8c8d;
+        }
+        
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .separator::before {
+            margin-left: 10px;
+        }
+        
+        .separator::after {
+            margin-right: 10px;
+        }
+        
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ddd;
+            background: white;
+            color: #555;
+        }
+        
+        .social-btn i {
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .google-btn {
+            border-color: #dd4b39;
+            color: #dd4b39;
+        }
+        
+        .google-btn:hover {
+            background: #dd4b39;
+            color: white;
+        }
+        
+        .facebook-btn {
+            border-color: #3b5998;
+            color: #3b5998;
+        }
+        
+        .facebook-btn:hover {
+            background: #3b5998;
+            color: white;
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #7f8c8d;
+        }
+        
+        .signup-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .info-card h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .features {
+            list-style-type: none;
+        }
+        
+        .features li {
+            padding: 15px 0;
+            padding-right: 40px;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .features li:last-child {
+            border-bottom: none;
+        }
+        
+        .features li::before {
+            content: "✓";
+            color: #2ecc71;
+            position: absolute;
+            right: 0;
+            font-size: 1.5rem;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .login-card, .info-card {
+                width: 90%;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>منصة تعلم تكنولوجيا المعلومات</h1>
+            <p>سجل الدخول للوصول إلى دورات HTML وCSS وJavaScript المتكاملة</p>
+        </div>
+        
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h2>تسجيل الدخول</h2>
+                    <p>أدخل بياناتك للوصول إلى حسابك</p>
+                </div>
+                
+                <div id="message" class="message"></div>
+                
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" placeholder="أدخل بريدك الإلكتروني" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">كلمة المرور</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required>
+                        </div>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <div class="remember">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">تذكرني</label>
+                        </div>
+                        <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+                    </div>
+                    
+                    <button type="submit" class="btn">تسجيل الدخول</button>
+                </form>
+                
+                <div class="separator">أو</div>
+                
+                <div class="social-login">
+                    <button class="social-btn google-btn" onclick="saveToGoogleDrive()">
+                        <i class="fab fa-google"></i> تسجيل الدخول باستخدام جوجل
+                    </button>
+                    <button class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i> تسجيل الدخول باستخدام فيسبوك
+                    </button>
+                </div>
+                
+                <div class="signup-link">
+                    ليس لديك حساب؟ <a href="#">سجل الآن</a>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h2>مزايا التسجيل في المنصة</h2>
+                <ul class="features">
+                    <li>الوصول إلى دورات HTML وCSS وJavaScript المتكاملة</li>
+                    <li>مشاريع عملية لتطبيق ما تتعلمه</li>
+                    <li>شهادات معتمدة بعد إتمام كل دورة</li>
+                    <li>دعم فني من متخصصين في المجال</li>
+                    <li>مجتمع تعليمي للتفاعل مع المتعلمين الآخرين</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // دالة للتعامل مع إرسال النموذج
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // التحقق من صحة البيانات (هنا يمكن إضافة المزيد من الشروط)
+            if (email && password) {
+                // عرض رسالة النجاح
+                showMessage('تم تسجيل الدخول بنجاح! سيتم توجيهك إلى الصفحة الرئيسية قريباً.', 'success');
+                
+                // حفظ البيانات في التخزين المحلي (كبديل مؤقت)
+                saveDataLocally(email, password);
+                
+                // إعادة تعيين النموذج
+                document.getElementById('login-form').reset();
+                
+                // إعادة التوجيه بعد فترة (محاكاة)
+                setTimeout(() => {
+                    alert('سيتم الآن توجيهك إلى الصفحة الرئيسية');
+                    window.location.href = 'https://example.com'; // استبدل بالرابط الفعلي
+                }, 2000);
+            } else {
+                showMessage('يرجى ملء جميع الحقول المطلوبة.', 'error');
+            }
+        });
+        
+        // دالة لعرض الرسائل
+        function showMessage(text, type) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = text;
+            messageElement.className = `message ${type}`;
+            messageElement.style.display = 'block';
+            
+            // إخفاء الرسالة بعد 5 ثوان
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 5000);
+        }
+        
+        // دالة لحفظ البيانات محلياً (كبديل مؤقت)
+        function saveDataLocally(email, password) {
+            const userData = {
+                email: email,
+                password: password, // في التطبيق الحقيقي، لا تخزن كلمات المرور كنص واضح
+                loginTime: new Date().toISOString()
+            };
+            
+            localStorage.setItem('userLoginData', JSON.stringify(userData));
+            console.log('تم حفظ بيانات التسجيل محلياً:', userData);
+        }
+        
+        // دالة لمحاكاة حفظ البيانات في جوجل درايف
+        function saveToGoogleDrive() {
+            const email = document.getElementById('email').value || 'user@example.com';
+            const password = document.getElementById('password').value || 'user_password';
+            
+            // في التطبيق الحقيقي، هذا سيكون عنوان URL لـ Google Apps Script
+            const scriptURL = 'https://script.google.com/macros/s/ABC123your_script_id_here/exec';
+            
+            // بيانات للإرسال
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
+            formData.append('timestamp', new Date().toISOString());
+            
+            // محاكاة الإرسال إلى جوجل درايف
+            showMessage('جاري حفظ البيانات في جوجل درايف...', 'success');
+            
+            // في التطبيق الحقيقي، نستخدم fetch لإرسال البيانات
+            /*
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                showMessage('تم حفظ بيانات التسجيل في جوجل درايف بنجاح!', 'success');
+            })
+            .catch(error => {
+                showMessage('حدث خطأ أثناء محاولة حفظ البيانات في جوجل درايف.', 'error');
+            });
+            */
+            
+            // بدلاً من ذلك، نعرض رسالة توضيحية
+            setTimeout(() => {
+                showMessage('لربط التطبيق بجوجل درايف، يلزم إعداد Google Apps Script.', 'success');
+                alert('لإكمال عملية الربط مع جوجل درايف:\n\n1. أنشئ مشروع Google Apps Script جديد\n2. الصق كود معالجة البيانات\n3. انشر التطبيق كتطبيق ويب\n4. ضع الرابط في متغير scriptURL في الكود');
+            }, 1000);
+        }
+        
+        // دالة للعرض التلقائي لبيانات الاختبار (لأغراض التطوير)
+        function fillSampleData() {
+            document.getElementById('email').value = 'user@example.com';
+            document.getElementById('password').value = 'password123';
+        }
+        
+        // تعبئة بيانات الاختبار تلقائياً عند تحميل الصفحة (لأغراض التطوير فقط)
+        window.onload = fillSampleData;
+    </script>
+</body>
+</html>

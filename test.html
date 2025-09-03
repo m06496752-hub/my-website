@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز الحياة للتدريب المهني - تعرف علينا أكثر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary: #2c5f8a;
+            --primary-light: #3a7ca5;
+            --secondary: #3a9d23;
+            --accent: #f39c12;
+            --light: #f8f9fa;
+            --dark: #1a1a2e;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-register {
+            background: var(--accent);
+            color: white;
+            border: 2px solid var(--accent);
+        }
+
+        .btn-register:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        /* قائمة الهامبرجر */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+
+        .hamburger-menu span {
+            height: 3px;
+            width: 100%;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* قائمة الهاتف المحمول */
+        .mobile-nav {
+            position: fixed;
+            top: 80px;
+            right: -100%;
+            width: 280px;
+            height: calc(100vh - 80px);
+            background: white;
+            flex-direction: column;
+            padding: 40px 20px;
+            transition: all 0.4s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            width: 100%;
+        }
+
+        .mobile-nav-links li {
+            margin: 15px 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        .mobile-nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: block;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-links a:hover,
+        .mobile-nav-links a.active {
+            background-color: rgba(44, 95, 138, 0.1);
+            color: var(--primary);
+        }
+
+        .mobile-nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .mobile-nav-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* بقية الأنماط تبقى كما هي */
+        body {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e4e7ec 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        .section-subtitle {
+            font-size: 1.4rem;
+            color: #555;
+            max-width: 800px;
+            margin: 30px auto 0;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* قسم الفيديوهات */
+        .videos-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('imgs/a7d26f9e-0f23-4fc0-b19d-3f109f694ae1.png') center/cover no-repeat;
+            opacity: 0.2;
+        }
+
+        .play-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            backdrop-filter: blur(5px);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover .play-icon {
+            transform: scale(1.2);
+            background: var(--accent);
+        }
+
+        .video-content {
+            padding: 25px;
+        }
+
+        .video-title {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .video-description {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* قسم معرض الصور */
+        .gallery-section {
+            margin-bottom: 80px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 250px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            opacity: 0;
+            transition: all 0.5s ease;
+            transform: translateY(20px);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .gallery-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* قسم المعلومات الإضافية */
+        .info-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 80px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            opacity: 0.1;
+        }
+
+        .info-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .info-text {
+            padding: 20px;
+        }
+
+        .info-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .info-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .info-description {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .info-list i {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-left: 15px;
+            margin-top: 5px;
+        }
+
+        .info-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            transition: all 0.4s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .stat-text {
+            font-size: 1.1rem;
+        }
+
+        /* الفوتر */
+        .footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #2a2a4a 100%);
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(44, 95, 138, 0.2) 0%, transparent 25%),
+                radial-gradient(circle at 80% 20%, rgba(58, 157, 35, 0.2) 0%, transparent 25%);
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-col {
+            padding: 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            color: white;
+            font-size: 28px;
+        }
+
+        .footer-logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .footer-logo-text span {
+            color: var(--accent);
+        }
+
+        .footer-about {
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links li:hover {
+            transform: translateX(10px);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-links a i {
+            margin-left: 10px;
+            color: var(--accent);
+        }
+
+        .contact-info {
+            margin-bottom: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            color: var(--accent);
+            font-size: 18px;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1rem;
+        }
+
+        /* أيقونات التواصل الاجتماعي */
+        .social-section {
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+
+        .social-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon.facebook {
+            background: linear-gradient(135deg, #3b5998, #4a6fbb);
+        }
+
+        .social-icon.whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .social-icon.instagram {
+            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .social-icon.messenger {
+            background: linear-gradient(135deg, #006aff, #0084ff);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 30px 0 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .copyright a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .copyright a:hover {
+            text-decoration: underline;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 1200px) {
+            .section-title {
+                font-size: 2.8rem;
+            }
+            
+            .videos-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2.4rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .nav-links,
+            .nav-buttons {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .info-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .info-title::after {
+                right: 50%;
+                transform: translateX(50%);
+            }
+            
+            .info-list li {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 15px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .video-container {
+                height: 250px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .gallery-item {
+                height: 200px;
+            }
+            
+            .info-title {
+                font-size: 2rem;
+            }
+            
+            .info-description {
+                font-size: 1.1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-logo {
+                justify-content: center;
+            }
+            
+            .footer-title::after {
+                right: 50%;
+                transform: translateX(50%);
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin-left: 0;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title::after {
+                width: 100px;
+            }
+            
+            .video-container {
+                height: 200px;
+            }
+            
+            .video-content {
+                padding: 20px;
+            }
+            
+            .video-title {
+                font-size: 1.4rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .mobile-nav {
+                width: 100%;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                   <img src="imgs/images.jpg" style="width: 60px; border-radius: 60px;" alt="">
+                </div>
+                <div class="logo-text">مركز <span>الحياة</span></div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="#">من نحن</a></li>
+                <li><a href="" class="active">تعرف علينا</a></li>
+                <li><a href="#">البرامج التدريبية</a></li>
+                <li><a href="#">المدربين</a></li>
+                <li><a href="signin.html">اتصل بنا</a></li>
+            </ul>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn btn-login">تسجيل الدخول</button>
+                <button class="nav-btn btn-register">حساب جديد</button>
+            </div>
+            
+            <!-- زر قائمة الهامبرجر -->
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- قائمة الهاتف المحمول -->
+    <div class="mobile-nav" id="mobile-nav">
+        <ul class="mobile-nav-links">
+            <li><a href="#">الرئيسية</a></li>
+            <li><a href="#">من نحن</a></li>
+            <li><a href="#" class="active">تعرف علينا</a></li>
+            <li><a href="#">البرامج التدريبية</a></li>
+            <li><a href="#">المدربين</a></li>
+            <li><a href="#">اتصل بنا</a></li>
+        </ul>
+        
+        <div class="mobile-nav-buttons">
+            <button class="mobile-nav-btn btn-login">تسجيل الدخول</button>
+            <button class="mobile-nav-btn btn-register">حساب جديد</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">تعرف علينا أكثر</h1>
+            <p class="section-subtitle">اكتشف رحلة مركز الحياة للتدريب المهني ورؤيتنا نحو تأهيل الشباب لسوق العمل بمهارات عالية الجودة</p>
+        </div>
+        
+        <!-- قسم الفيديوهات -->
+        <div class="videos-section">
+            <div class="video-card">
+                <div class="video-container">
+                    <!-- العنصر النائب للفيديو الأول -->
+                    <div class="video-placeholder" onclick="loadVideo(this, 'project/WhatsApp Video 2025-08-20 at 7.01.13 PM (1).mp4')">
+                        <div class="play-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <!-- iframe للفيديو الأول -->
+                    <iframe 
+                        src="about:blank"
+                        data-src="ElevenLabs_2025-08-30T06_18_39_Bill_pre_sp100_s50_sb75_se0_b_m2.mp3.mp4" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-content">
+                    <h3 class="video-title">جولة داخل مركز الحياة للتدريب المهني</h3>
+                    <p class="video-description">
+                        انضم إلينا في جولة خاصة داخل مرافقنا التدريبية المجهزة بأحدث التقنيات 
+                        والوسائل التعليمية التي نقدمها لمتدربينا لضمان تجربة تعليمية متميزة.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="video-card">
+                <div class="video-container">
+                    <!-- العنصر النائب للفيديو الثاني -->
+                    <div class="video-placeholder" onclick="loadVideo(this, 'https://www.youtube.com/embed/VIDEO_ID_2')">
+                        <div class="play-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <!-- iframe للفيديو الثاني -->
+                    <iframe 
+                        src="about:blank"
+                        data-src="WhatsApp Video 2025-08-20 at 6.59.43 PM.mp4" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-content">
+                    <h3 class="video-title">كلمات من متدربينا وخريجينا</h3>
+                    <p class="video-description">
+                        استمع إلى تجارب حقيقية من متدربينا الذين حققوا نجاحات مهنية 
+                        ملحوظة بعد انضمامهم لبرامجنا التدريبية المتخصصة في مختلف المجالات.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- قسم معرض الصور -->
+        <div class="gallery-section">
+            <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 40px;">معرض مركز الحياة</h2>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="قاعات التدريب">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">قاعات التدريب</h3>
+                        <p class="gallery-desc">قاعات مجهزة بأحدث التقنيات التعليمية</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="تدريب عملي">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">تدريب عملي</h3>
+                        <p class="gallery-desc">جلسات عملية لتطبيق المهارات</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="مختبرات متطورة">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">مختبرات متطورة</h3>
+                        <p class="gallery-desc">مختبرات مجهزة بأحدث الأجهزة</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="حفل التخرج">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">حفل التخرج</h3>
+                        <p class="gallery-desc">احتفالات تخرج متدربينا</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="أنشطة لاصفية">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">أنشطة لاصفية</h3>
+                        <p class="gallery-desc">فعاليات وأنشطة تدعم التعلم</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1522881193457-37ae97c905bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="ورش العمل">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">ورش العمل</h3>
+                        <p class="gallery-desc">ورش عمل مع متخصصين في المجال</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- قسم المعلومات الإضافية -->
+    <div class="info-section">
+        <div class="info-content">
+            <div class="info-text">
+                <h2 class="info-title">رؤيتنا ورسالتنا</h2>
+                <p class="info-description">
+                    نسعى في مركز الحياة للتدريب المهني إلى أن نكون الرائد في مجال التدريب المهني 
+                    والتقني على مستوى المنطقة، من خلال تقديم برامج تدريبية متخصصة تلبي احتياجات 
+                    سوق العمل المحلي والعالمي.
+                </p>
+                
+                <ul class="info-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>تأهيل الشباب لسوق العمل بمهارات عملية متخصصة</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>مواكبة أحدث التطورات التكنولوجية والمهنية</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>بناء شراكات استراتيجية مع القطاعين العام والخاص</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>تقديم تجربة تعليمية شاملة تجمع بين النظرية والتطبيق</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="info-stats">
+                <div class="stat-item">
+                    <div class="stat-number">14+</div>
+                    <div class="stat-text">سنة من الخبرة</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">8500+</div>
+                    <div class="stat-text">متدرّب متميز</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">24+</div>
+                    <div class="stat-text">برنامج تدريبي</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">120+</div>
+                    <div class="stat-text">شريك استراتيجي</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                       <img src="imgs/images.jpg" style="width: 60px; border-radius: 60%;" alt="">
+                    </div>
+                    <div class="footer-logo-text">مركز <span>الحياة</span></div>
+                </div>
+                <p class="footer-about">
+                    مركز الحياة للتدريب المهني مؤسسة رائدة في مجال التدريب المهني والتقني، 
+                    نسعى لتأهيل الشباب لسوق العمل من خلال برامج تدريبية متخصصة تواكب 
+                    احتياجات سوق العمل المحلي والعالمي.
+                </p>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> من نحن</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> البرامج التدريبية</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> المدربين</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">معلومات التواصل</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>العنوان</h4>
+                            <p>الفيوم، أمام مستشفى الصدر مباشرة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>الهاتف</h4>
+                            <p>084 2345678 - 0100 1234567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>البريد الإلكتروني</h4>
+                            <p>info@hayat-center.edu.eg</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- قسم أيقونات التواصل الاجتماعي -->
+        <div class="social-section">
+            <h3 class="social-title">تابعنا على وسائل التواصل الاجتماعي</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon messenger">
+                    <i class="fab fa-facebook-messenger"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">جميع الحقوق محفوظة &copy; 2023 مركز الحياة للتدريب المهني | تصميم وتطوير <a href="#">فريق المركز التقني</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // تفعيل قائمة الهاتف المحمول
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const mobileNav = document.getElementById('mobile-nav');
+        
+        hamburgerMenu.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            hamburgerMenu.classList.toggle('active');
+        });
+        
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                hamburgerMenu.classList.remove('active');
+            });
+        });
+        
+        // إغلاق القائمة عند النقر على زر
+        document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                hamburgerMenu.classList.remove('active');
+            });
+        });
+        
+        // دالة لتحميل الفيديو عند النقر
+        function loadVideo(element, videoUrl) {
+            // إخفاء العنصر النائب
+            element.style.display = 'none';
+            
+            // العثور على عنصر iframe المجاور
+            const iframe = element.nextElementSibling;
+            
+            // تعيين مصدر الفيديو
+            iframe.src = iframe.dataset.src || videoUrl;
+            
+            // إظهار iframe
+            iframe.style.display = 'block';
+        }
+        
+        // تفعيل تأثيرات التمرير
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoCards = document.querySelectorAll('.video-card');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const statItems = document.querySelectorAll('.stat-item');
+            
+            videoCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 500 + index * 200);
+            });
+            
+            galleryItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(50px)';
+                item.style.transition = `opacity 0.8s ease ${index * 0.1}s, transform 0.8s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 800 + index * 100);
+            });
+            
+            statItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = `opacity 0.8s ease ${index * 0.1}s, transform 0.8s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 1000 + index * 100);
+            });
+            
+            // تأثيرات التمرير
+            window.addEventListener('scroll', function() {
+                const elements = document.querySelectorAll('.video-card, .gallery-item, .stat-item');
+                elements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.8) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

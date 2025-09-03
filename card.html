@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دورات تكنولوجيا المعلومات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #1a2a6c);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+        
+        .card-html::before {
+            background: linear-gradient(90deg, #e44d26, #f16529);
+        }
+        
+        .card-css::before {
+            background: linear-gradient(90deg, #264de4, #2965f1);
+        }
+        
+        .card-js::before {
+            background: linear-gradient(90deg, #f0db4f, #f7df1e);
+        }
+        
+        .card-icon {
+            font-size: 5rem;
+            margin: 20px 0;
+        }
+        
+        .html-icon {
+            color: #e44d26;
+        }
+        
+        .css-icon {
+            color: #264de4;
+        }
+        
+        .js-icon {
+            color: #f0db4f;
+        }
+        
+        .card h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+        
+        .card p {
+            line-height: 1.8;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        /* صفحات الدورات */
+        .course-page {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 1000px;
+            margin: 40px auto;
+            display: none;
+        }
+        
+        .course-page.active {
+            display: block;
+        }
+        
+        .course-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .course-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .course-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .course-content h3 {
+            margin: 25px 0 15px;
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+        
+        .course-content ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        
+        .course-content li {
+            padding: 8px 0;
+            padding-right: 25px;
+            position: relative;
+        }
+        
+        .course-content li::before {
+            content: "•";
+            color: #3498db;
+            position: absolute;
+            right: 0;
+            font-size: 1.5rem;
+        }
+        
+        .back-btn {
+            background: #7f8c8d;
+            margin-top: 30px;
+        }
+        
+        .back-btn:hover {
+            background: #636e72;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .card {
+                width: 90%;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .course-page {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>دورات تكنولوجيا المعلومات</h1>
+            <p>اختر الدورة التي تريد تعلمها من الكروت أدناه وابدأ رحلتك في عالم تطوير الويب</p>
+        </div>
+        
+        <div class="cards-container">
+            <!-- كرت HTML -->
+            <div class="card card-html">
+                <div class="card-icon">
+                    <i class="fab fa-html5 html-icon"></i>
+                </div>
+                <h2>دورة HTML</h2>
+                <p>تعلم لغة هيكلة المحتوى الأساسية لبناء مواقع الويب. ستتعلم كيفية إنشاء هيكل الصفحات، إضافة النصوص، الصور، الروابط والنماذج.</p>
+                <button class="btn start-btn" data-course="html">ابدأ الدورة</button>
+            </div>
+            
+            <!-- كرت CSS -->
+            <div class="card card-css">
+                <div class="card-icon">
+                    <i class="fab fa-css3-alt css-icon"></i>
+                </div>
+                <h2>دورة CSS</h2>
+                <p>أتقن فن تنسيق وتصميم صفحات الويب. ستتعلم كيفية جعل مواقعك جذابة باستخدام الألوان، الخطوط، التخطيطات والتأثيرات البصرية.</p>
+                <button class="btn start-btn" data-course="css">ابدأ الدورة</button>
+            </div>
+            
+            <!-- كرت JavaScript -->
+            <div class="card card-js">
+                <div class="card-icon">
+                    <i class="fab fa-js-square js-icon"></i>
+                </div>
+                <h2>دورة JavaScript</h2>
+                <p>أضف التفاعلية إلى مواقعك الويب. ستتعلم كيفية معالجة الأحداث، تعديل المحتوى ديناميكيًا، والتفاعل مع المستخدمين.</p>
+                <button class="btn start-btn" data-course="js">ابدأ الدورة</button>
+            </div>
+        </div>
+        
+        <!-- صفحة دورة HTML -->
+        <div id="html-course" class="course-page">
+            <div class="course-header">
+                <h2><i class="fab fa-html5 html-icon"></i> دورة HTML كاملة</h2>
+                <p>لغة ترميز النص التشعبي (HTML) هي العمود الفقري لأي موقع ويب</p>
+            </div>
+            
+            <div class="course-content">
+                <h3>ما هي HTML؟</h3>
+                <p>HTML (لغة ترميز النص التشعبي) هي اللغة القياسية لإنشاء صفحات الويب. تصف HTML بنية صفحة الويب وتتكون من سلسلة من العناصر التي تخبر المتصفح كيف يعرض المحتوى.</p>
+                
+                <h3>ما سوف تتعلمه في هذه الدورة:</h3>
+                <ul>
+                    <li>أساسيات HTML والعناصر الأساسية</li>
+                    <li>إنشاء هيكل صفحة الويب</li>
+                    <li>إضافة النصوص والعناوين والفقرات</li>
+                    <li>عمل الروابط والصور</li>
+                    <li>إنشاء الجداول والقوائم</li>
+                    <li>بناء النماذج وعناصر الإدخال</li>
+                    <li>أفضل الممارسات في كتابة HTML</li>
+                    <li>HTML5 والعناصر الدلالية الجديدة</li>
+                </ul>
+                
+                <h3>أمثلة على عناصر HTML:</h3>
+                <p>العناصر هي اللبنات الأساسية لصفحات HTML. كل عنصر يتكون من وسم فتح ووسم إغلاق والمحتوى بينهما.</p>
+                
+                <button class="btn back-btn">العودة إلى الصفحة الرئيسية</button>
+            </div>
+        </div>
+        
+        <!-- صفحة دورة CSS -->
+        <div id="css-course" class="course-page">
+            <div class="course-header">
+                <h2><i class="fab fa-css3-alt css-icon"></i> دورة CSS كاملة</h2>
+                <p>أوراق الأنماط المتتالية (CSS) تستخدم لتنسيق وتصميم صفحات الويب</p>
+            </div>
+            
+            <div class="course-content">
+                <h3>ما هي CSS؟</h3>
+                <p>CSS (أوراق الأنماط المتتالية) هي اللغة المستخدمة لوصف مظهر وتنسيق المستندات المكتوبة بلغة HTML. تتحكم CSS في الألوان، الخطوط، المسافات، التخطيط العام والعديد من الجوانب البصرية الأخرى لصفحة الويب.</p>
+                
+                <h3>ما سوف تتعلمه في هذه الدورة:</h3>
+                <ul>
+                    <li>مقدمة إلى CSS وطرق دمجها مع HTML</li>
+                    <li>محددات CSS والأولويات</li>
+                    <li>تنسيق النصوص والخطوط</li>
+                    <li>الألوان والخلفيات</li>
+                    <li>النموذج الصندوقي (Box Model)</li>
+                    <li>التخطيطات والمواقع (Flexbox, Grid)</li>
+                    <li>التصميم المتجاوب لجميع الشاشات</li>
+                    <li>التحويلات والتحولات والرسوم المتحركة</li>
+                </ul>
+                
+                <h3>لماذا CSS مهمة؟</h3>
+                <p>بدون CSS، ستكون جميع صفحات الويب مجرد نصوص سوداء على خلفية بيضاء مع روابط زرقاء. تضيف CSS الجمال والتجربة البصرية التي تجعل مواقع الويب جذابة وسهلة الاستخدام.</p>
+                
+                <button class="btn back-btn">العودة إلى الصفحة الرئيسية</button>
+            </div>
+        </div>
+        
+        <!-- صفحة دورة JavaScript -->
+        <div id="js-course" class="course-page">
+            <div class="course-header">
+                <h2><i class="fab fa-js-square js-icon"></i> دورة JavaScript كاملة</h2>
+                <p>جافا سكريبت (JavaScript) تضيف التفاعلية والديناميكية إلى صفحات الويب</p>
+            </div>
+            
+            <div class="course-content">
+                <h3>ما هي JavaScript؟</h3>
+                <p>JavaScript هي لغة برمجة عالية المستوى تستخدم primarily لجعل صفحات الويب تفاعلية. تتيح JavaScript إنشاء محتوى ديناميكي، تحكم في الوسائط المتعددة، تحريك الصور، وتفاعل مع إجراءات المستخدم.</p>
+                
+                <h3>ما سوف تتعلمه في هذه الدورة:</h3>
+                <ul>
+                    <li>أساسيات JavaScript والمتغيرات</li>
+                    <li>أنواع البيانات والعوامل</li>
+                    <li>الشروط والحلقات التكرارية</li>
+                    <li>الدوال ووجهات النظر</li>
+                    <li>كائنات JavaScript والمصفوفات</li>
+                    <li>التعامل مع نموذج HTML (DOM)</li>
+                    <li>أحداث JavaScript</li>
+                    <li>مقدمة في jQuery وAJAX</li>
+                </ul>
+                
+                <h3>أهمية JavaScript:</h3>
+                <p>اليوم، JavaScript لا تقتصر على المتصفح فقط. يمكن استخدامها في تطوير تطبيقات الخوادم (Node.js)، تطبيقات الهواتف (React Native, Ionic)، وحتى في برامج سطح المكتب (Electron).</p>
+                
+                <button class="btn back-btn">العودة إلى الصفحة الرئيسية</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 دورات تكنولوجيا المعلومات - جميع الحقوق محفوظة</p>
+            <p>تم إنشاء هذا الموقع لأغراض تعليمية</p>
+        </div>
+    </div>
+
+    <script>
+        // عناصر DOM
+        const startButtons = document.querySelectorAll('.start-btn');
+        const backButtons = document.querySelectorAll('.back-btn');
+        const coursePages = document.querySelectorAll('.course-page');
+        const cardsContainer = document.querySelector('.cards-container');
+        const header = document.querySelector('.header');
+        
+        // إضافة event listeners لأزرار البدء
+        startButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const courseId = button.getAttribute('data-course');
+                showCoursePage(courseId);
+            });
+        });
+        
+        // إضافة event listeners لأزرار العودة
+        backButtons.forEach(button => {
+            button.addEventListener('click', showMainPage);
+        });
+        
+        // عرض صفحة الدورة
+        function showCoursePage(courseId) {
+            // إخفاء الصفحة الرئيسية
+            cardsContainer.style.display = 'none';
+            header.style.display = 'none';
+            
+            // إخفاء جميع صفحات الدورات أولاً
+            coursePages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // إظهار صفحة الدورة المحددة
+            document.getElementById(`${courseId}-course`).classList.add('active');
+        }
+        
+        // عرض الصفحة الرئيسية
+        function showMainPage() {
+            // إظهار الصفحة الرئيسية
+            cardsContainer.style.display = 'flex';
+            header.style.display = 'block';
+            
+            // إخفاء جميع صفحات الدورات
+            coursePages.forEach(page => {
+                page.classList.remove('active');
+            });
+        }
+        
+        // جعل الصفحة متجاوبة عند تغيير حجم النافذة
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 768) {
+                cardsContainer.style.flexDirection = 'column';
+            } else {
+                cardsContainer.style.flexDirection = 'row';
+            }
+        });
+    </script>
+</body>
+</html>
